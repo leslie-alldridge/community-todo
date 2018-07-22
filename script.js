@@ -1,0 +1,1 @@
+document.getElementById("connect").innerHTML = "Javascript is now Connected";
