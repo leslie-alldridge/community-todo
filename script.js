@@ -1,1 +1,7 @@
-document.getElementById("connect").innerHTML = "Javascript is now Connected";
+
+function saveTest(){
+    alert("save clicked");
+}
+function removeTest(){
+    alert("remove clicked");
+}
