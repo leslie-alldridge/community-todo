@@ -9,9 +9,11 @@
 <div>
 	<h2>Enter your ToDo Items below:</h2>
 </div>
-<input type="text" placeholder="what do you want to do?"/>
-<button onclick="saveTest()" id="button__save">Click me to save Todo</button>
-<button onclick="removeTest()" id="button__remove">Click me to remove Todo</button>
+<input id="input" type="text" placeholder="what do you want to do?"/>
+<ol id="todoList" class="todoList"></ol>
+<ul class="todoCompleted"></ul>
+<button onclick="saveTodo()" id="button__save">Save</button>
+<button onclick="removeTest()" id="button__remove">Remove</button>
 
 <script type="text/javascript" src="script.js"></script>
 </body>
