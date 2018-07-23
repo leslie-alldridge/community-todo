@@ -1,3 +1,7 @@
 h1{
 	color: red;
 }
+ul{
+	color: grey;
+	text-decoration: line-through;
+}

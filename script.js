@@ -1,13 +1,87 @@
+var toDoList = []; // Global array to contain the uncompleted items
+var completedToDoList = [];
+
 // Adding user input to screen when save is pressed 
 function saveTodo(textInput){
-    var userInput = document.getElementById('input').value;
-    console.log(userInput);
-    var c = document.createElement('li');
-    var t = document.createTextNode(userInput);
-    c.appendChild(t);
-    document.getElementById('todoList').appendChild(c);
+	var userInput = document.getElementById('input').value;
+	if(userInput!== ""){
+		console.log("User added " + userInput);
+		var c = document.createElement('li');
+		var t = document.createTextNode(userInput);
+		c.appendChild(t);
+		document.getElementById('todoList').appendChild(c);
+		document.getElementById("input").value = ""; //empties the textbox		
+		
+		addToArray(userInput);
+	}
+
+
 }
-// alert to test the remove button is hooked up
-function removeTest(){
-    alert("remove clicked");
+// Removes the To-Do item from the list without placing it into the completed section.
+// Haven't included code to handle numbers that exceeds the size of the list.
+function removeTest(textInput){
+	var userInput = document.getElementById("input").value - 1;
+	if(userInput!== ""){
+		if(typeof userInput === "number"){ // <-------- not seeing if it's a number or not.
+			removeFromArray(userInput);
+		}
+		else{
+			alert("Please enter the number of task.");
+		}
+		document.getElementById("input").value = "";
+		var list = document.getElementById("todoList");
+		list.removeChild(list.childNodes[userInput]);   
+	}
+}
+
+// Moves list items to a separate array under the "Completed Section"
+// Current issue with this function is that it's returning any value with '0'  <---------ISSUE
+function completeToDo(){
+	var userInput = document.getElementById("input").value - 1;
+	if(userInput!== ""){
+		if(typeof userInput === "number"){ // <-------- not seeing if it's a number or not.
+			moveToCompleteArray(userInput);
+		}
+		else{
+			alert("Please enter the number of task.");
+		}
+		document.getElementById("input").value = "";
+
+		var list = document.getElementById("todoList");
+		var target = list.childNodes[userInput];
+		var c = document.createElement("li");
+		var t = document.createTextNode(target.value);
+		c.appendChild(t);
+		document.getElementById("todoCompleted").appendChild(c);
+		
+		list.removeChild(target);   
+	}
+}
+
+// Adds selected item to the array and prints array into console
+function addToArray(item){
+	toDoList.push(item);
+	console.log("Current To-Do-List items")
+	toDoList.forEach(function(entry){
+		console.log(entry);
+	});
+	console.log("**********");
+}
+
+function removeFromArray(number){
+	toDoList.splice(number, 1);
+	toDoList.forEach(function(entry){
+		console.log(entry);
+	});
+	console.log("**********");
+}
+
+function moveToCompleteArray(number){
+	completedToDoList.push(toDoList[number]);
+	toDoList.splice(number, 1);
+	console.log("Current Completed-List items")
+	completedToDoList.forEach(function(entry){
+		console.log(entry);
+	});
+	console.log("**********")
 }
