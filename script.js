@@ -11,7 +11,14 @@ function saveTodo(textInput){
 		c.appendChild(t);
 		document.getElementById('todoList').appendChild(c);
 		document.getElementById("input").value = ""; //empties the textbox		
-		
+		//need to append x to a span
+		var span = document.createElement("SPAN");
+  		var xSymbol = document.createTextNode("\u00D7");
+  		span.className = "removeItem";
+  		span.appendChild(xSymbol);
+		c.appendChild(span);
+		lineItemAction(); 
+		//array actions
 		addToArray(userInput);
 	}
 
@@ -85,3 +92,20 @@ function moveToCompleteArray(number){
 	});
 	console.log("**********")
 }
+
+// at the moment this runs when the user presses Save and listens
+// out for someone clicking the x span 
+
+function lineItemAction(){
+	var removeItems = document.getElementsByClassName("removeItem");
+	var i;
+	for (i = 0; i < removeItems.length; i++) {
+  		removeItems[i].onclick = function() {
+    	var lineItem = this.parentElement;
+		lineItem.style.display = "none";
+		removeFromArray(i-1); //needs -1 since array starts at 0
+  	}
+	}
+}
+
+
