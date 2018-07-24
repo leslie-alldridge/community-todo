@@ -104,12 +104,16 @@ function lineItemAction(){
 	for (i = 0; i < removeItems.length; i++) {
   		removeItems[i].onclick = function() {
 		var lineItem = this.parentElement;
+		var name = this.className;
+		console.log(name);
+		var num = name.match(/\d/g);
+		num = num.join("");
 		// what I want to do here is grab the class name and split the text 
 		// and number portion, then pass the number through into removeFromArray
 		// because class names now have numbers included to identify which one
 		//is being clicked for removal.
 		lineItem.style.display = "none";
-		removeFromArray(num); //needs -1 since array starts at 0
+		removeFromArray((num-1)); //needs -1 since array starts at 0
   	}
 	}
 }
