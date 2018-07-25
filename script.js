@@ -1,6 +1,6 @@
 var toDoList = []; // Global array to contain the uncompleted items
 var completedToDoList = [];
-
+var num = 1;
 // Adding user input to screen when save is pressed 
 function saveTodo(textInput){
 	var userInput = document.getElementById('input').value;
@@ -11,8 +11,16 @@ function saveTodo(textInput){
 		c.appendChild(t);
 		document.getElementById('todoList').appendChild(c);
 		document.getElementById("input").value = ""; //empties the textbox		
-		
+		//need to append x to a span
+		var span = document.createElement("SPAN");
+		var xSymbol = document.createTextNode("\u00D7");
+  		span.className = 'removeItem' + num;
+  		span.appendChild(xSymbol);
+		c.appendChild(span);
+		lineItemAction(); 
+		//array actions
 		addToArray(userInput);
+		num++;
 	}
 
 
@@ -70,6 +78,7 @@ function addToArray(item){
 
 function removeFromArray(number){
 	toDoList.splice(number, 1);
+	console.log(number);
 	toDoList.forEach(function(entry){
 		console.log(entry);
 	});
@@ -85,3 +94,28 @@ function moveToCompleteArray(number){
 	});
 	console.log("**********")
 }
+
+// at the moment this runs when the user presses Save and listens
+// out for someone clicking the x span 
+
+function lineItemAction(){
+	var removeItems = document.getElementsByClassName('removeItem' + num);
+	var i;
+	for (i = 0; i < removeItems.length; i++) {
+  		removeItems[i].onclick = function() {
+		var lineItem = this.parentElement;
+		var name = this.className;
+		console.log(name);
+		var num = name.match(/\d/g);
+		num = num.join("");
+		// what I want to do here is grab the class name and split the text 
+		// and number portion, then pass the number through into removeFromArray
+		// because class names now have numbers included to identify which one
+		//is being clicked for removal.
+		lineItem.style.display = "none";
+		removeFromArray((num-1)); //needs -1 since array starts at 0
+  	}
+	}
+}
+
+
